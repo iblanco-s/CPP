@@ -1,7 +1,27 @@
 #include <iostream>
 
-int main()
-{
+class Contact {
+	std::string name;
+	std::string lastName;
+	std::string nickname;
+	int number;
+	std::string darkestSecret;
+};
+
+class PhoneBook {
+	Contact contact[8];
+	int numContacts = 0;
+
+	int add() {
+		if (numContacts < 8)
+			contact[numContacts] = createContact();
+
+	};
+};
+
+int main() {
+	PhoneBook phoneBook;
+
 	while (1)
 	{
 		std::cout << "Enter any of these commands: ADD, SEARCH or EXIT" << std::endl;
