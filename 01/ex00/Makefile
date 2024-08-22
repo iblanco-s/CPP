@@ -6,7 +6,7 @@ CFLAGS	= -Wall -Wextra -Werror -std=c++98 -Iinlcude
 
 RM		= rm -rf
 
-SRCS	= megaphone.cpp
+SRCS	= Megaphone.cpp
 
 OBJS    = $(SRCS:.cpp=.o)
 
