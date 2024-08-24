@@ -96,6 +96,7 @@ void PhoneBook::search() {
         std::cout << "Invalid index. Please try again." << std::endl;
         return;
     }
+	clearerr(stdin);
     std::cout << "Name: " << contacts[index].getName() << std::endl;
     std::cout << "Last name: " << contacts[index].getLastName() << std::endl;
     std::cout << "Nickname: " << contacts[index].getNickname() << std::endl;
