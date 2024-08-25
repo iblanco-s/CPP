@@ -1,4 +1,4 @@
-NAME	= weapon
+NAME	= file_content_replacer
 
 CPP 	= c++
 
@@ -6,7 +6,7 @@ CFLAGS	= -Wall -Wextra -Werror -std=c++98 -Iinlcude
 
 RM		= rm -rf
 
-SRCS	= Weapon.cpp HumanA.cpp HumanB.cpp main.cpp
+SRCS	= main.cpp
 
 OBJS    = $(SRCS:.cpp=.o)
 
