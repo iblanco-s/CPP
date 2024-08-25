@@ -210,10 +210,7 @@ years whereas you started working here since last month."
 • "ERROR" level: These messages indicate an unrecoverable error has occurred.
 This is usually a critical issue that requires manual intervention.
 Example: "This is unacceptable! I want to speak to the manager now."
-11
-C++ - Module 01
-Memory allocation, pointers to members,
-references, switch statement
+
 You are going to automate Harl. It won’t be difficult since it always says the same
 things. You have to create a Harl class with the following private member functions:
 • void debug( void );
