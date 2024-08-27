@@ -2,7 +2,7 @@ NAME	= string
 
 CPP 	= c++
 
-CFLAGS	= -Wall -Wextra -Werror -std=c++98 -Iinlcude
+CFLAGS	= -Wall -Wextra -Werror -std=c++98 -Iinclude
 
 RM		= rm -rf
 
