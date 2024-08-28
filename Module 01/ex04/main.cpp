@@ -14,47 +14,6 @@
 #include <fstream>
 #include <string>
 
-// int main(int argc, char **argv)
-// {
-// 	//check if there are 3 args
-// 	if (argc != 4)
-// 		return (std::cout << "Error: wrong number of arguments" << std::endl, 1);
-	
-// 	std::ifstream readFile(argv[1]);
-
-// 	if (readFile.is_open()) {
-//         std::cout << "File opened correctly" << std::endl;
-
-// 		std::ofstream createdFile((std::string(argv[1]) + ".replace").c_str());
-
-// 		if (createdFile.is_open()) {
-// 			std::string line;
-//         	while (std::getline(readFile, line)) {
-//             	size_t pos = 0;
-// 				// std::string::npos is what find returns when the substring is not found
-//     			while ((pos = line.find(argv[2], pos)) != std::string::npos) {
-//         			line.erase(pos, (std::string(argv[2])).length());
-//         			line.insert(pos, (std::string(argv[3])));
-//         			pos += (std::string(argv[3])).length();
-//     			}
-// 				createdFile << line << std::endl;
-//         	}
-// 			readFile.close();
-// 			createdFile.close();
-// 			std::cout << "File created successfully" << std::endl;
-// 		} else {
-// 			std::cout << "Unable to create file" << std::endl;
-// 		}
-//     } else {
-//         std::cout << "Unable to open file" << std::endl;
-//     }
-
-// 	return 0;
-// }
-
-
-// // ... existing code ...
-
 int main(int argc, char **argv)
 {
     if (argc != 4)
