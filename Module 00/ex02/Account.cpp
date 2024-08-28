@@ -99,6 +99,7 @@ bool Account::makeWithdrawal(int withdrawal) {
 	return (refused);
 }
 
+//Constructor
 Account::Account(int initial_deposit) {
     _accountIndex = _nbAccounts;
     _amount = initial_deposit;

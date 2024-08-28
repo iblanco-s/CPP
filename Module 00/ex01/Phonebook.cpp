@@ -6,7 +6,7 @@
 /*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 19:29:18 by iblanco-          #+#    #+#             */
-/*   Updated: 2024/08/22 19:38:49 by iblanco-         ###   ########.fr       */
+/*   Updated: 2024/08/23 13:11:26 by iblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 PhoneBook::PhoneBook() : numContacts(0) {}
 
-std::string getInput(const std::string& prompt) {
+std::string PhoneBook::getInput(const std::string prompt) {
     std::string input;
     std::cout << prompt;
     std::getline(std::cin, input);
@@ -31,13 +31,29 @@ std::string getInput(const std::string& prompt) {
     return input;
 }
 
-Contact createNewContact() {
+std::string PhoneBook::getPhoneNumber(const std::string prompt) {
+    while (true) {
+        std::string input = getInput(prompt);
+        bool isValid = true;
+        for (size_t i = 0; i < input.length(); ++i) {
+            if (!isdigit(input[i])) {
+                isValid = false;
+                break;
+            }
+        }
+        if (isValid)
+            return input;
+        std::cout << "Invalid input. Please enter a valid number." << std::endl;
+    }
+}
+
+Contact PhoneBook::createNewContact() {
     Contact contact;
 
     std::string name = getInput("Enter the name: ");
     std::string lastName = getInput("Enter the last name: ");
     std::string nickname = getInput("Enter the nickname: ");
-    std::string number = getInput("Enter the number: ");
+    std::string number = getPhoneNumber("Enter the number: ");
     std::string darkestSecret = getInput("Enter the darkest secret: ");
 
     contact.setContactInfo(name, lastName, nickname, number, darkestSecret);
@@ -55,12 +71,12 @@ void PhoneBook::add() {
     }
 }
 
-void printSpaces(int length) {
+void PhoneBook::printSpaces(int length) {
     for (int i = 0; i < length; i++)
         std::cout << " ";
 }
 
-void printInTable(std::string str, bool last = false) {
+void PhoneBook::printInTable(std::string str, bool last = false) {
     int length = str.length();
     if (length > 10)
         std::cout << str.substr(0, 9) << ".";
@@ -83,23 +99,28 @@ void PhoneBook::search() {
         printInTable(contacts[i].getLastName());
         printInTable(contacts[i].getNickname(), true);
     }
-    std::cout << "\n" << "Enter the index of the contact you want to see: ";
+    
+    std::string input;
     int index;
-    if (std::cin >> index) {
-        if (index < 0 || index >= 8 || contacts[index].getName().empty()) {
-            std::cout << "Invalid index. Please try again." << std::endl;
-            return;
-        }
-    } else {
-        std::cin.clear();
-        clearerr(stdin);
-        std::cout << "Invalid index. Please try again." << std::endl;
+    
+    std::cout << "\nEnter the index of the contact you want to see: " << std::endl;
+    if (!std::getline(std::cin, input)) {
+        std::cout << "Error reading input. Returning to menu." << std::endl;
         return;
     }
-	clearerr(stdin);
-    std::cout << "Name: " << contacts[index].getName() << std::endl;
-    std::cout << "Last name: " << contacts[index].getLastName() << std::endl;
-    std::cout << "Nickname: " << contacts[index].getNickname() << std::endl;
-    std::cout << "Number: " << contacts[index].getNumber() << std::endl;
-    std::cout << "Darkest secret: " << contacts[index].getDarkestSecret() << std::endl;
+    
+	std::istringstream iss(input);
+	if (iss >> index && iss.eof()) {
+        if (index >= 0 && index < 8 && !contacts[index].getName().empty()) {
+            std::cout << "Name: " << contacts[index].getName() << std::endl;
+            std::cout << "Last name: " << contacts[index].getLastName() << std::endl;
+            std::cout << "Nickname: " << contacts[index].getNickname() << std::endl;
+            std::cout << "Number: " << contacts[index].getNumber() << std::endl;
+            std::cout << "Darkest secret: " << contacts[index].getDarkestSecret() << std::endl;
+        } else {
+            std::cout << "Invalid index. Returning to menu." << std::endl;
+        }
+    } else {
+        std::cout << "Invalid input. Returning to menu." << std::endl;
+    }
 }
