@@ -15,6 +15,22 @@ ScavTrap::ScavTrap(std::string name) : ClapTrap(name) {
 	std::cout << "ScavTrap " << this->getName() << " constructor called" << std::endl;
 }
 
+ScavTrap::ScavTrap(const ScavTrap& other) : ClapTrap(other) {
+	*this = other;
+	std::cout << "ScavTrap " << this->getName() << " copy constructor called" << std::endl;
+}
+
+ScavTrap& ScavTrap::operator=(const ScavTrap& other) {
+	if (this != &other) {
+		this->setName(other.getName());
+		this->setHitPoints(other.getHitPoints());
+		this->setEnergyPoints(other.getEnergyPoints());
+		this->setAttackDamage(other.getAttackDamage());
+	}
+	std::cout << "ScavTrap " << this->getName() << " copy assignment operator called" << std::endl;
+	return *this;
+}
+
 ScavTrap::~ScavTrap() {
 	std::cout << "ScavTrap " << this->getName() << " destructor called" << std::endl;	
 }
