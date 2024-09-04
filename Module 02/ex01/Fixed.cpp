@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Fixed.cpp                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/03 16:01:30 by iblanco-          #+#    #+#             */
+/*   Updated: 2024/09/03 16:01:31 by iblanco-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Fixed.hpp"
 
 Fixed::Fixed() : _fixedPointValue(0) {
@@ -21,13 +33,13 @@ Fixed::~Fixed() {
 }
 
 int Fixed::getRawBits( void ) const {
-	// std::cout << "getRawBits member function called" << std::endl;
 	return this->_fixedPointValue;
 }
 
 void Fixed::setRawBits( int const raw ) {
 	this->_fixedPointValue = raw;
 }
+
 
 Fixed::Fixed(const int value) {
 	std::cout << "Int constructor called" << std::endl;

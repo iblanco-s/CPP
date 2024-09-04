@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Fixed.cpp                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/03 16:01:53 by iblanco-          #+#    #+#             */
+/*   Updated: 2024/09/03 16:01:54 by iblanco-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Fixed.hpp"
 
 Fixed::Fixed() : _fixedPointValue(0) {
@@ -97,6 +109,17 @@ Fixed &Fixed::operator++() {
 Fixed Fixed::operator++(int) {
 	Fixed temp = *this;
 	this->_fixedPointValue++;
+	return temp;
+}
+
+Fixed &Fixed::operator--() {
+	this->_fixedPointValue--;
+	return *this;
+}
+
+Fixed Fixed::operator--(int) {
+	Fixed temp = *this;
+	this->_fixedPointValue--;
 	return temp;
 }
 
