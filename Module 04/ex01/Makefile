@@ -1,4 +1,4 @@
-NAME	= animal
+NAME	= animalWithBrain
 
 CPP 	= c++
 

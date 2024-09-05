@@ -12,6 +12,7 @@ class Brain {
 		Brain& operator=(const Brain& other);
 		~Brain();
 
+		const std::string* getIdeas() const;
 };
 
 #endif
