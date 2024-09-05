@@ -43,6 +43,13 @@ from a WrongAnimal class. If you replace the Animal and the Cat by the wrong one
 in the code above, the WrongCat should output the WrongAnimal sound.
 Implement and turn in more tests than the ones given above.
 6
+
+
+
+
+
+
+
 Chapter IV
 Exercise 01: I don’t want to set the
 world on fire
@@ -76,6 +83,15 @@ return 0;
 }
 Implement and turn in more tests than the ones given above.
 8
+
+
+
+
+
+
+
+
+
 Chapter V
 Exercise 02: Abstract class
 Exercise : 02
