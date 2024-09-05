@@ -16,7 +16,6 @@ class Animal {
 		std::string getType() const;
 		void setType(const std::string& type);
 		
-		// Pure virtual function
 		virtual void makeSound() const;
 };
 
