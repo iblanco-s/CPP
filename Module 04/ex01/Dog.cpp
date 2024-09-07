@@ -7,15 +7,17 @@ Dog::Dog() : Animal() {
 }
 
 Dog::Dog(const Dog& other) : Animal(other) {
-	this->brain = new Brain(*other.getBrain());
+	this->brain = new Brain(*other.getBrain()); // Deep copy
 	std::cout << "Dog copy constructor called" << std::endl;
 }
 
 Dog& Dog::operator=(const Dog& other) {
 	if (this != &other) {
-		Animal::operator=(other);
-		delete this->brain;
-		this->brain = new Brain(*other.getBrain());
+		Animal::operator=(other); // Copy the Animal part
+		if (this->brain) {
+			delete this->brain;
+		}
+		this->brain = new Brain(*other.getBrain()); // Deep copy
 	}
 	return *this;
 }
