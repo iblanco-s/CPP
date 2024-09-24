@@ -1,0 +1,91 @@
+name: Manage Header Comments
+
+# Define when the workflow should run
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  update-headers:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Check out the repository
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: ${{ github.event_name == 'pull_request' && 2 || 0 }}
+
+      # Set up Python environment
+      - name: Set Up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      # Install required dependencies
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install filelock
+
+      # Determine which files have changed
+      - name: Get Changed Files
+        id: changed_files
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            echo "changed_files=$(git diff --name-only -r HEAD^1 HEAD | xargs)" >> $GITHUB_OUTPUT
+          else
+            echo "changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | xargs)" >> $GITHUB_OUTPUT
+          fi
+
+      # Output the list of changed files for debugging
+      - name: Debug Changed Files
+        run: |
+          echo "Changed Files: ${{ steps.changed_files.outputs.changed_files }}"
+
+      # Run the header management script
+      - name: Run Header Management Script
+        env:
+          GITHUB_USER: iblanco-
+          PUSH_DATE: ${{ github.event.head_commit.timestamp }}
+          GITHUB_CHANGED_FILES: ${{ steps.changed_files.outputs.changed_files }}
+          GITHUB_WORKSPACE: ${{ github.workspace }}
+        run: |
+          python .github/workflows/scripts/manage_headers.py
+
+      # Fetch the last commit message
+      - name: Get last commit message
+        id: get_last_commit_message
+        run: echo "message=$(git log -1 --pretty=%B)" >> $GITHUB_OUTPUT
+
+      - name: Check for changes
+        id: git-check
+        run: |
+          git diff --exit-code || echo "changes=true" >> $GITHUB_OUTPUT
+
+      - name: Commit changes
+        if: steps.git-check.outputs.changes == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git reset -- .github/workflows/manage-headers.yml
+          git commit -m "Add headers [${{ steps.get_last_commit_message.outputs.message }}]"
+
+      - name: Push changes
+        if: steps.git-check.outputs.changes == 'true'
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+
+      - name: Commit Changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update header comments"
+          branch: ${{ github.head_ref || github.ref_name }}
+          file_pattern: '**/*.{c,h,cpp,hpp,php,htm,html,xml,js,tex,ml,mli,mll,mly,vim,vimrc,el,emacs,f90,f95,f03,f,for,py}'
