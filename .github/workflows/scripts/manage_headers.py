@@ -82,10 +82,23 @@ for file in changed_files:
     file_path = os.path.join(os.getenv('GITHUB_WORKSPACE', ''), file)
     print(f"Debug: Processing file: {file_path}")
     if os.path.exists(file_path):
-        _, ext = os.path.splitext(file)
-        if ext not in excluded_extensions and file.lower() != 'makefile':
-            process_file(file_path)
+        if os.path.isfile(file_path):  # Ensure it's a file
+            _, ext = os.path.splitext(file)
+            if ext not in excluded_extensions and file.lower() != 'makefile':
+                process_file(file_path)
+            else:
+                print(f"Debug: Skipping excluded file: {file_path}")
+        else:
+            print(f"Debug: {file_path} is a directory, not a file")
     else:
         print(f"Debug: File not found: {file_path}")
+        # Additional debugging information
+        print(f"Debug: Current working directory: {os.getcwd()}")
+        print(f"Debug: Contents of parent directory:")
+        parent_dir = os.path.dirname(file_path)
+        if os.path.exists(parent_dir):
+            print("\n".join(os.listdir(parent_dir)))
+        else:
+            print(f"Parent directory {parent_dir} does not exist")
 
 print("Debug: Script execution completed")

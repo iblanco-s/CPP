@@ -47,6 +47,12 @@ jobs:
         run: |
           echo "Changed Files: ${{ steps.changed_files.outputs.changed_files }}"
 
+      # List workspace files for debugging
+      - name: List Workspace Files
+        run: |
+          echo "Listing files in GITHUB_WORKSPACE:"
+          ls -R ${{ github.workspace }}
+
       # Run the header management script
       - name: Run Header Management Script
         env:
