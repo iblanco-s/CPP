@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Form.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iblanco- <iblanco-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/27 19:08:01 by iblanco-          #+#    #+#             */
+/*   Updated: 2024/09/27 19:08:01 by iblanco-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Form.hpp"
 
 Form::Form() : name("Default"), isSigned(false), requiredGradeToSign(3), requiredGradeToExecute(3)  {
@@ -60,4 +72,3 @@ void Form::beSigned(Bureaucrat &bureaucrat) {
 	else
 		this->isSigned = true;
 }
-
