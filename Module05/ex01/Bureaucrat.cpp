@@ -27,8 +27,9 @@ Bureaucrat::Bureaucrat(const Bureaucrat &other) {
 	*this = other;
 }
 
-Bureaucrat &Bureaucrat::operator=(const Bureaucrat &other) {
+Bureaucrat & Bureaucrat::operator=(const Bureaucrat &other) {
 	this->grade = other.grade;
+	//not name cause constant
 	return *this;
 }
 
@@ -65,4 +66,13 @@ const char *Bureaucrat::GradeTooLowException::what() const throw() {
 std::ostream &operator<<(std::ostream& os, const Bureaucrat& bureaucrat) {
 	std::cout << bureaucrat.getName() << ", bureaucrat grade " << bureaucrat.getGrade();
 	return os;
+}
+
+void Bureaucrat::signForm(Form &form) {
+	try {
+		form.beSigned(*this);
+		std::cout << this->name << " signed " << form.getName() << std::endl;
+	} catch (std::exception &e) {
+		std::cout << this->name << "  couldn’t sign " << form.getName() << " because " << e.what() << std::endl;
+	}
 }
