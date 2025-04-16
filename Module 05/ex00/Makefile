@@ -16,7 +16,6 @@ $(NAME): $(OBJS)
 	@$(CPP) $(CFLAGS) $(OBJS) -o $(NAME)
 
 %.o:%.cpp
-	@mkdir -p $(@D)
 	$(CPP) $(CFLAGS) -c $< -o $@
 
 clean:
